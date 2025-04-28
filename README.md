@@ -2,17 +2,15 @@
 
 ## 概要
 
-API GatewayとLambdaの連携を試しました。後ろのLambdaは、SQSにメッセージを送ります。
+API GatewayとLambdaの連携を試しました。
 TODOがたくさん残っています。助けてください。
 
 ## ディレクトリ構成
 
 ```
 .
-├─ app
-│   ├─ push-message-to-sqs      # SQSにメッセージを送るためのLambda
-│   │   └─ lambda_function.py   
-│   └─ read-message-from-sqs    # SQSからメッセージを受け取るためのLambda
+├─ app   
+│   └─ lambda                   # Lambdaコード
 │       ├─ lambda_function.py
 │       ├─ outputs/             # layerを格納する
 │       └─ requirements.txt     
@@ -21,7 +19,6 @@ TODOがたくさん残っています。助けてください。
     ├─ data.tf                  # アカウントIDのためのdata
     ├─ lambda                   # lambdaを作成する際のzip
     ├─ lambda.tf                # lambdaの定義
-    ├─ sqs.tf                   # SQSの定義
     └─ variables.tf             # 変数定義
 ```
 
@@ -33,8 +30,8 @@ TODOがたくさん残っています。助けてください。
 $ pwd
 app
 
-$ python3 -m venv read-message-from-sqs/outputs/venv
-$ read-message-from-sqs/outputs/venv/bin/pip3 install -r read-message-from-sqs/requirements.txt -t read-message-from-sqs/outputs/layer/python --no-cache-dir
+$ python3 -m venv lambda/outputs/venv
+$ lambda/outputs/venv/bin/pip3 install -r lambda/requirements.txt -t lambda/outputs/layer/python --no-cache-dir
 ```
 
 ## 使い方
@@ -50,7 +47,5 @@ terraform apply
 
 ## TODO
 
-- [] コールバック部分のテストができていません。`http://localhost`を外部に公開できないからです。
-- [] API Gatewayのリソースがそれぞれ何をしているのかよくわかっていません。あとで調べます。
-- [] bodyとしてリクエストを受け取ることができていません。LambdaコードをpathStringに書き換えてください。
-- [] SQSを間に入れながら、同期処理のような形を目指していることが間違えかもしれません。考える必要があります。
+[] - API Gatewayのリソースがそれぞれ何をしているのかよくわかっていません。あとで調べます。
+[] - bodyとしてリクエストを受け取ることができていません。LambdaコードをpathStringに書き換えてください。
